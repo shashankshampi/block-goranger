@@ -1,0 +1,73 @@
+{
+  "tasks": [
+    {
+      "name": "api1",
+      "taskobject": {
+        "protocol": "http",
+        "rate": 3,
+        "duration": 1,
+        "MaxConcurrency" : 2,
+        "timer" : "3",
+        "httpendpoint": {
+          "url": "http://www.example.com",
+          "method": "POST",
+          "payloadPath": "servicename/listing.json",
+          "headers": [
+            "content-type:application/json",
+            "accept:application/json"
+          ],
+          "cookies": {}
+        },
+        "file" : [{
+          "name" : "listing",
+          "path" : "files/servicename/listing.txt",
+          "lineseperator": "\n",
+          "valueseperator": ",",
+          "isSerial" : true
+        }],
+        "redis": [{
+          "name": "redisName",
+          "host": "hostPath:6379",
+          "password":"",
+          "index": 0,
+          "rediskeys": [
+            "keyName"
+          ]}],
+        "isenabled": true
+      }
+    },
+    {
+      "name": "api2",
+      "taskobject": {
+        "protocol": "http",
+        "rate": 1,
+        "duration": 1,
+        "httpendpoint": {
+          "url": "http://www.example.com",
+          "method": "GET",
+          "payloadPath": "servicename/cart.json",
+          "headers": [
+            "content-type:application/json"
+          ],
+          "cookies": {}
+        },
+        "file" : [{
+          "name" : "cart",
+          "path" : "files/servicename/cart.txt",
+          "lineseperator": "\n",
+          "valueseperator": ",",
+          "isSerial" : false
+        }],
+        "redis": [{
+          "name": "redisName",
+          "host": "hostName:6379",
+          "password":"",
+          "index": 0,
+          "rediskeys": [
+            "keyName"
+          ]}],
+        "isenabled": true
+      }
+    }
+  ]
+}

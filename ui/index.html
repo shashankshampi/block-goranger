@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Swiggy - Dashboard</title>
+    <!-- Custom fonts for this template-->
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="vendor/bootstrap-multiselect/dist/css/bootstrap-multiselect.css">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Swiggy</div>
+            </a>
+            <!-- Divider -->
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Divider -->
+            <!-- Nav Item - Charts -->
+            <li class="nav-item d-none">
+                <strong>Select Branch:</strong>
+                <select class="form-control" id="select_brand">
+                </select>
+                <br>
+                <hr class="sidebar-divider">
+            </li>
+	     <li class="nav-item text-center d-none">
+             <form method="POST" enctype="multipart/form-data" id="upload_profile_form">
+             <input id="upload_profile" class="upload_profile" type="file" name="file" accept=".json" multiple>
+             <label for="upload_profile" class="btn btn-info text-center">Upload Profile</label>
+             </form>
+             <br>
+         </li>
+            <div id="upload_notify" style="width: 100%">
+                <div class="alert alert-info d-none" role="alert">
+                    Files uploaded successfully!!!!
+                    <br>
+                </div>
+                <div class="alert alert-danger d-none" role="alert">
+                    oops!!! File upload error.
+                    <br>
+                </div>
+            </div>
+
+            <li class="nav-item text-center d-none">
+                <div id="upload_or"><strong>OR</strong></div>
+                <br>
+            </li>
+            <!-- Divider -->
+            <!-- Nav Item - Charts -->
+            <li class="nav-item  d-none">
+                <strong>Select Profile:</strong>
+                <select class="form-control" id="profiles_list">
+                </select>
+                <br>
+                <hr class="sidebar-divider">
+            </li>
+
+            <li class="nav-item d-none">
+                <strong>Upload CSV/Payload:</strong>
+                <br>
+                <form method="POST" enctype="multipart/form-data" class="action-buttons" id="upload_csv_form">
+                    <input id="upload_csv" class="upload_csv" type="file" name="file" accept=".csv, .txt" multiple>
+                    <label for="upload_csv" class="btn btn-info text-center">Data</label>
+                </form>
+                <form method="POST" enctype="multipart/form-data" class="action-buttons-pay" id="upload_payload_form">
+                    <input id="upload_payload" class="upload_payload" type="file" name="file" accept=".json" multiple>
+                    <label for="upload_payload" class="btn btn-info text-center">Payload</label>
+                </form>
+                <br>
+                <div id="upload_notify_csv" style="width: 100%">
+                    <div class="alert alert-info d-none" role="alert">
+                        Files uploaded successfully!!!!
+                        <br>
+                    </div>
+                    <div class="alert alert-danger d-none" role="alert">
+                        oops!!! File upload error.
+                        <br>
+                    </div>
+                </div>
+
+
+                <div id="upload_notify_payload" style="width: 100%">
+                    <div class="alert alert-info d-none" role="alert">
+                        Files uploaded successfully!!!!
+                        <br>
+                    </div>
+                    <div class="alert alert-danger d-none" role="alert">
+                        oops!!! File upload error.
+                        <br>
+                    </div>
+                </div>
+                <hr class="sidebar-divider">
+            </li>
+
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item  d-none">
+                <strong>Select Tasks:</strong>
+                <select id="task_lists" multiple="multiple">
+                </select>
+                <br>
+            </li>
+            <li class="nav-item text-center d-none">
+                <input type="checkbox" name="isDebug" value="Debug"><strong> Enable Debug Logs</strong>
+                <div class="action-buttons">
+                    <button type="button" id="run_submit" class="btn btn-info">Run</button>
+                </div>
+                <button type="button" id="stop_submit" class="btn btn-info action-buttons">Stop</button>
+            </li>
+            <div id="stop_notify" style="width: 100%">
+                <div class="alert alert-info d-none" role="alert">
+                    Tasks stopped successfully!!!!
+                </div>
+                <div class="alert alert-danger d-none" role="alert">
+                    oops!!! Task not in running state.
+                </div>
+            </div>
+            <br>
+
+            <!-- Nav Item - Charts -->
+            <span id="update_block" class="d-none">
+                <li class="nav-item ">
+                    <strong>Active tasks:</strong>
+                    <select class="form-control" id="active_task">
+                    </select>
+                    <br>
+                    <hr class="sidebar-divider">
+                </li>
+                <li class="nav-item ">
+                    <input class="form-control" value="" id="rate_value" placeholder="Rate...">
+                    <br>
+                </li>
+                <li class="nav-item text-center">
+                    <button type="button" id="update_submit" class="btn btn-info">Update</button>
+                </li>
+                <br>
+                <div id="notify" style="width: 100%">
+                    <div class="alert alert-info d-none" role="alert">
+                        Rate updated successfully!!!!
+                    </div>
+                    <div class="alert alert-danger d-none" role="alert">
+                        oops!!! Task not in running state.
+                    </div>
+                </div>
+            </span>
+
+            <!-- Nav Item - Tables -->
+            <!-- Divider -->
+
+            <!-- Nav Item - Charts -->
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <!-- Topbar Search -->
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Algates M</span>
+                                <img class="img-profile rounded-circle"
+                                    src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/login.html">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="reset_all"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Reset</a>
+                    </div>
+                    <!-- Content Row -->
+                    <div id="empty_search" class="text-center">
+                        <img src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/3xempty_new_area_gqaepg"
+                            width="350" style="margin-top: 5%;" alt="">
+                    </div>
+                    <div class="row d-none" id="results_card">
+                        <!-- Earnings (Monthly) Card Example -->
+
+
+
+                    </div>
+                    <div class="footer">
+                        <strong class="footer_header">Server Logs:</strong>
+                        <pre id="logs"></pre>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
+    <script src="js/main.min.js"></script>
+</body>
+
+</html>

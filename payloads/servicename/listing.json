@@ -1,0 +1,7 @@
+{
+  "customer_location": {
+    "lat": "${listing_0}",
+    "lng": "${listing_1}"
+  },
+  "city_id": ${listing_2}
+}

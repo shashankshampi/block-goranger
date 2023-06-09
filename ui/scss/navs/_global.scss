@@ -1,0 +1,94 @@
+// Global styles for both custom sidebar and topbar compoments
+
+.sidebar,
+.topbar {
+  .nav-item {
+    // Customize Dropdown Arrows for Navbar
+    &.dropdown {
+      .dropdown-toggle {
+        &::after {
+          width: 1rem;
+          text-align: center;
+          float: right;
+          vertical-align: 0;
+          border: 0;
+          font-weight: 900;
+          content: '\f105';
+          font-family: 'Font Awesome 5 Free';
+        }
+      }
+      &.show {
+        .dropdown-toggle::after {
+          content: '\f107';
+        }
+      }
+    }
+    // Counter for nav links and nav link image sizing
+    .nav-link {
+      position: relative;
+      .badge-counter {
+        position: absolute;
+        transform: scale(0.7);
+        transform-origin: top right;
+        right: .25rem;
+        margin-top: -.25rem;
+      }
+      .img-profile {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+  }
+}
+
+.upload_profile {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	opacity: 0;
+	position: absolute;
+	z-index: -1;
+}
+
+.upload_csv {
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	opacity: 0;
+	position: absolute;
+	z-index: -1;
+}
+
+.upload_payload {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	opacity: 0;
+	position: absolute;
+	z-index: -1;
+}
+
+.action-buttons {
+    display: inline;
+    margin-left: 0px;
+}
+
+.action-buttons-pay {
+    display: inline;
+    margin-left: 10px;
+}
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 300px;
+    width: 86.7%;
+    background-color: #4e73df;
+    color: black;
+    text-align: left;
+    overflow:hidden;
+}
+
+.footer_header {
+    text-align: centre;
+}
