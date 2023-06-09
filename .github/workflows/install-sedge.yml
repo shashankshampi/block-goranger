@@ -1,0 +1,78 @@
+name: Install Sedge
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.18.1'
+
+      - name: Remove existing 'src' directory
+        run: rm -rf src
+
+      - name: Download and build Sedge
+        run: |
+          echo "Downloading sedge sources..."
+          git clone https://github.com/NethermindEth/sedge.git src --branch main --single-branch
+          echo "Sources downloaded."
+          cd src
+          echo "Downloading missing dependency..."
+          go mod download github.com/distribution/distribution/v3
+          echo "Updating go-runewidth package..."
+          go get github.com/mattn/go-runewidth@latest
+          echo "Building sedge..."
+          make compile
+
+      - name: Verify sedge executable
+        run: |
+          echo "Contents of 'src/build' directory:"
+          ls -la src/build
+
+      - name: Debug information
+        run: |
+          echo "GOROOT: $GOROOT"
+          echo "GOPATH: $GOPATH"
+          echo "Current directory: $PWD"
+          echo "Contents of the current directory:"
+          ls -la
+
+      - name: Run Sedge
+        run: |
+          echo 'Running sedge...'
+          cd src/build
+          echo "Contents of the current directory:"
+          ls -la
+          ./sedge deps install >> $HOME/sedge.logs
+          
+          ./sedge generate --logging none -p $HOME full-node --map-all --no-mev-boost --no-validator --network chiado -c lighthouse:sigp/lighthouse:latest -e nethermind:nethermindeth/nethermind:master --el-extra-flag Sync.NonValidatorNode=true --el-extra-flag Sync.DownloadBodiesInFastSync=false --el-extra-flag Sync.DownloadReceiptsInFastSync=false --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >> $HOME/sedge.logs
+          echo "Contents of the HOME/sedge.logs:"
+          cat $HOME/sedge.logs
+          mv $HOME/docker-compose.yml .
+          mv $HOME/.env .
+          echo "Contents of the current directory after move:"
+          ls -la
+          ./sedge run -p . >> $HOME/sedge.logs
+
+      - name: Display sedge logs
+        run: cat $HOME/sedge.logs
